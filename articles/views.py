@@ -23,7 +23,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('article_list')
     login_url = 'login'
 
-    def dispatch(self, request, *args, **kwargs): # new
+    def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.author != self.request.user:
             raise PermissionDenied
@@ -47,6 +47,6 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     fields = ('title', 'body',)
     login_url = 'login'
 
-    def form_vlid(self, form):
+    def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)

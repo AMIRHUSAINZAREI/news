@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 class Article(models.Model):
+
     title = models.CharField(max_length=255)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
@@ -21,11 +22,13 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('article_detail', args=[str(self.id)])
 
+
 class Comment(models.Model):
+
     article = models.ForeignKey(
             Article,
             on_delete=models.CASCADE,
-            related_name='comments', # new
+            related_name='comments',
         )
     comment = models.CharField(max_length=140)
     author = models.ForeignKey(
